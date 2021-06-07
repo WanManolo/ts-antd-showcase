@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { Button } from 'antd';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
+const App: FC = () => (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
@@ -18,9 +18,9 @@ function App() {
         >
           Learn React
         </a>
+        <Button type="primary">Button</Button>
       </header>
     </div>
-  );
-}
+);
 
 export default App;
