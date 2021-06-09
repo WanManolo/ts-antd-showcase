@@ -8,7 +8,7 @@ export const BreadCrumb = () => {
   const renderBreadCrumb = () => {
     const { pathname } = location;
     const pathnames = pathname.split("/").filter((item: any) => item);
-    const capatilize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+    const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
     return (
       <div>
         <Breadcrumb style={{ margin: '16px 0' }}>
@@ -23,10 +23,10 @@ export const BreadCrumb = () => {
             const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
             const isLast = index === pathnames.length - 1;
             return isLast ? (
-              <Breadcrumb.Item>{capatilize(name)}</Breadcrumb.Item>
+              <Breadcrumb.Item>{capitalize(name)}</Breadcrumb.Item>
             ) : (
               <Breadcrumb.Item>
-                <Link to={`${routeTo}`}>{capatilize(name)}</Link>
+                <Link to={`${routeTo}`}>{capitalize(name)}</Link>
               </Breadcrumb.Item>
             );
           })}
