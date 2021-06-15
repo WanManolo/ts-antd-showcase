@@ -1,7 +1,8 @@
 import { Button, Layout } from 'antd';
 import logo from '../logo.svg';
+import { FC } from 'react';
 
-export const HomeContainer = () => {
+export const HomeContainer: FC = () => {
   return (
     <>
       <Layout>
