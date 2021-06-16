@@ -6,10 +6,27 @@ import { RangeValue } from 'rc-picker/lib/interface';
 import { CheckboxValueType } from 'antd/lib/checkbox/Group';
 
 const { RangePicker } = DatePicker;
+
+// Static values
 const rootSubmenuKeys = ['sub1', 'sub2', 'sub3', 'sub4', 'sub5'];
 const checkboxKeys = ['Received', 'Printed', 'Folded', 'Sorted', 'Delivered'];
 const dateFormat = 'DD/MM/YYYY';
 
+/**
+ * @name Props for Sidebar filtering component
+ * @summary Holds the props definition for the table filters.
+ *
+ * @param dateFilter holds state for the date-picker component filter.
+ * @param addressFilter holds state for the address input component filter.
+ * @param statusFilter holds the state list of checked statuses on the checkbox group component filter.
+ * @param groupFilter holds the state for the select group component filter.
+ *
+ * @function handleAddressFilter holds the function that will handle the input value for the address component filter.
+ * @function handleDateFilter holds the function that will handle the input value for the date-picker component filter.
+ * @function handleDateRangeFilter holds the function that will handle the range values for the range-picker component filter.
+ * @function handleStatusFilter holds the function that will handle the list of values for the checkbox group component filter.
+ * @function handleGroupFilter holds the function that will handle the select group component filter.∫
+ */
 export interface Props {
     dateFilter: string;
     addressFilter: string;
@@ -22,9 +39,32 @@ export interface Props {
     handleGroupFilter: (group: string) => void;
 }
 
-export const Sidebar: FC<Props> = ({ dateFilter, addressFilter, statusFilter, groupFilter, handleAddressFilter, handleDateFilter, handleDateRangeFilter, handleStatusFilter, handleGroupFilter }) => {
+/**
+ * @name Sidebar Function Component extends {@link FC}
+ * @summary Function component that will display a sider with a menu list containing filters to apply on the {@link DocumentTable} component.
+ *
+ * @param props {@link Props} to include. All mandatory.
+ *
+ * @returns Fragment {@link React.Fragment} containing the composition of elements to display the {@link Layout.Sider} with the filters.
+ */
+export const Sidebar: FC<Props> = ({
+    dateFilter,
+    addressFilter,
+    statusFilter,
+    groupFilter,
+    handleAddressFilter,
+    handleDateFilter,
+    handleDateRangeFilter,
+    handleStatusFilter,
+    handleGroupFilter }) => {
+
     const [openKeys, setOpenKeys] = useState<Key[]>(['sub1']);
 
+    /**
+     * @name onOpenChange
+     * @summary identifies and sets the currently open meny entry to collapse all non active menu entries.
+     * @param keys Array with active keys, only 1 should be present.
+     */
     const onOpenChange = (keys: Key[]) => {
         const latestOpenKey: Key | undefined = keys.find((key: Key) => openKeys.indexOf(key) === -1);
         if (latestOpenKey && rootSubmenuKeys.indexOf(latestOpenKey.toString()) === -1) {
@@ -34,6 +74,11 @@ export const Sidebar: FC<Props> = ({ dateFilter, addressFilter, statusFilter, gr
         }
     };
 
+    /**
+     * @name listFilters
+     * @summary Helper function to render the {@link SubMenu} component structure for the {@link Menu} on the {@link Layout.Sider}
+     * @returns Fragment {@link React.Fragment} containing the menu list and filters for the {@link DocumentTable} component.
+     */
     const listFilters = () => {
         return (
             <>

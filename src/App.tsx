@@ -8,25 +8,40 @@ import { BreadCrumb } from './components/breadcrumb/BreadCrumb';
 import { Routes } from './components/Routes';
 
 type Props = {
-
+// No props
 };
 
 type State = {
   selectedMenuEntry: string;
 };
+
+/**
+ * Main Component Class
+ *
+ * @extends {React.Component} {@link Component}
+ * @summary Renders the application example to display a navbar with 3 pages. Includes the document browser.
+ * @property {any} history - BrowserHistory {@link createBrowserHistory} holds the visited pathnames.
+ *
+ * @author Juan Manuel Rodríguez
+ *
+*/
 class App extends Component<Props, State> {
+  // History for Router and links - type is any because type History is not generic
   history: any;
+
   state: State = {
+    // Active navbar entry
     selectedMenuEntry: window.location.pathname.split("/").pop() || ''
   }
 
   constructor(props: any) {
     super(props);
+    // Initialize history
     this.history = createBrowserHistory();
   }
 
   setSelectedMenuEntry = (value: string) => {
-    this.setState((state) => ({ selectedMenuEntry: value }));
+    this.setState(() => ({ selectedMenuEntry: value }));
   };
 
   render() {

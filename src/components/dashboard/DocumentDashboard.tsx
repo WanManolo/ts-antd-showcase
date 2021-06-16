@@ -7,9 +7,17 @@ import { Moment } from 'moment';
 import { RangeValue } from 'rc-picker/lib/interface';
 
 interface Props {
-
+    // No props
 }
 
+/**
+ * @name DocumentDashboard Function Component extends {@link FC}
+ * @summary Function component that will display a {@link DocumentTable} and a {@link Layout.Sider} component to filter the table.
+ *
+ * @param props {@link Props} to include. No props.
+ *
+ * @returns Fragment {@link React.Fragment} containing the composition of elements to display the {@link DocumentTable} and the {@link Sidebar} component.
+ */
 export const DocumentDashboard: FC<Props> = () => {
     const [dateFilter, setDateFilter] = useState<string>('');
     const [addressFilter, setAddressFilter] = useState<string>('');
@@ -18,6 +26,11 @@ export const DocumentDashboard: FC<Props> = () => {
     const [dateRangeFilter, setDateRangeFilter] = useState<string[]>([]);
     const [checkboxGroupStatus, setCheckBoxGroupStatus] = useState<CheckboxValueType[]>([]);
 
+    /**
+     * @name clearFilters
+     * @summary Helper function to reset the filters of a given column name.
+     * @param column name.
+     */
     const clearFilters = (column: string) => {
         switch (column) {
             case 'date':
@@ -37,26 +50,53 @@ export const DocumentDashboard: FC<Props> = () => {
         }
     }
 
+    /**
+     * @name handleStatusFilter
+     * @summary Helper function to handle the onChange event on the status filter.
+     * @param options checked values.
+     */
     const handleStatusFilter = (options: CheckboxValueType[]) => {
         setCheckBoxGroupStatus(options);
     };
 
+    /**
+     * @name handleDateFilter
+     * @summary Helper function to handle the onChange event on the date filter.
+     * @param date string representation.
+     */
     const handleDateFilter = (date: string) => {
         setDateFilter(date);
     }
 
+    /**
+     * @name handleAddressFilter
+     * @summary Helper function to handle the onChange event on the address filter.
+     * @param address value.
+     */
     const handleAddressFilter = (address: string) => {
         setAddressFilter(address);
     };
 
+    /**
+     * @name handleGroupFilter
+     * @summary Helper function to handle the onChange event on the group filter.
+     * @param group selected option.
+     */
     const handleGroupFilter = (group: string) => {
         setGroupFilter(group);
     };
 
+    /**
+     * @name handleDateRangeFilter
+     * @summary Helper function to handle the onChange event on the range date filter.
+     * @param values date type parameter. Not used.
+     * @param formatString array of formatted dates, used to parse the date range.
+     */
     const handleDateRangeFilter = (values: RangeValue<Moment>, formatString: [string, string]) => {
         setDateRangeFilter(formatString);
     }
 
+    // Effect to handle the changes on the state filter list and prepare the state for the components.
     useEffect(() => {
         let states: string[] = [];
         checkboxGroupStatus.forEach((cs) => { states.push(cs.toString()) });

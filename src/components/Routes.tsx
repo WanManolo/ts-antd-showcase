@@ -3,7 +3,11 @@ import { Route, Switch } from "react-router-dom";
 import { DocumentDashboard } from "./dashboard/DocumentDashboard";
 import { HomeContainer } from "./HomeContainer";
 
-
+/**
+ * Routes class to manage rendering of different sections of the app.
+ *
+ * @summary Contains currently 2 routes to '/' and '/documents', where '/' corresponds to the homepage and '/documents' to the document browser.
+*/
 export class Routes extends Component {
 
   render() {
@@ -20,13 +24,6 @@ export class Routes extends Component {
           path="/documents"
           render={(props) => { return (<DocumentDashboard {...props} {...this.props} />) }}
         />
-
-        <Route
-          exact
-          path="/contacts"
-        //render={(props) => (<ContactsContainer {...props} {...this.props} />)}
-        />
-
       </Switch>
     );
   }

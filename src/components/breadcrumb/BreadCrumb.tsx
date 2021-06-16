@@ -21,7 +21,7 @@ export const BreadCrumb: FC<Props> = ({ selectedEntry, setSelectedEntry }) => {
 
     return (
       <>
-        <Breadcrumb style={{ margin: '16px 0' }}>
+        <Breadcrumb data-testid='breadcrumb-component' style={{ margin: '16px 0' }}>
           {pathnames.length > 0 ?
             <Breadcrumb.Item key="/"><Link to="/" onClick={handleLinkClick} >Home</Link></Breadcrumb.Item>
             : <Breadcrumb.Item key="home" >Home</Breadcrumb.Item>}

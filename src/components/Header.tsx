@@ -23,7 +23,7 @@ export const Header: FC<Props> = ({ selectedEntry, setSelectedEntry }) => {
     return (
       <>
         <Layout className="header">
-          <Menu theme="dark" mode="horizontal" onClick={handleMenuClick} selectedKeys={[currentEntry]}>
+          <Menu data-testid="header-component" theme="dark" mode="horizontal" onClick={handleMenuClick} selectedKeys={[currentEntry]}>
             <Menu.Item key="home">
               <Link to="/">
                 <p>Home</p>
@@ -32,11 +32,6 @@ export const Header: FC<Props> = ({ selectedEntry, setSelectedEntry }) => {
             <Menu.Item key="documents">
               <Link to="/documents">
                 <p>Documents</p>
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="contact">
-              <Link to="/contact">
-                <p>Contact</p>
               </Link>
             </Menu.Item>
           </Menu>
