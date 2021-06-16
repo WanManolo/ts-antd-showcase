@@ -42,15 +42,15 @@ export const Sidebar: FC<Props> = ({ dateFilter, addressFilter, statusFilter, gr
                         <Input data-testid="input-address" value={addressFilter} placeholder="Search Address" onChange={(e: any) => handleAddressFilter(e.target.value)} />
                     </Menu.Item>
                 </SubMenu>
-                <SubMenu key="sub2" title="Date">
+                <SubMenu key="sub2" title="Date" data-testid="menu-date-picker">
                     <Menu.Item key="2.1">
                         <DatePicker value={dateFilter === '' ? null : moment(dateFilter, dateFormat)} format={dateFormat} onChange={(m: any) => handleDateFilter(m ? m.format(dateFormat).toLocaleString() : '')} />
                     </Menu.Item>
                 </SubMenu>
-                <SubMenu key="sub3" title="Status">
+                <SubMenu key="sub3" title="Status" data-testid="menu-status">
                     <Checkbox.Group value={statusFilter} options={checkboxKeys} onChange={handleStatusFilter} />
                 </SubMenu>
-                <SubMenu key="sub4" title="Group">
+                <SubMenu key="sub4" title="Group" data-testid="menu-select-group">
                     <Menu.Item key="4.1">
                         <Select data-testid="select-group" value={groupFilter} defaultValue="" style={{ width: 120 }} onChange={(value: string) => handleGroupFilter(value)}>
                             <Select.Option value="">None</Select.Option>
@@ -62,7 +62,7 @@ export const Sidebar: FC<Props> = ({ dateFilter, addressFilter, statusFilter, gr
                         </Select>
                     </Menu.Item>
                 </SubMenu>
-                <SubMenu key="sub5" title="Date Range">
+                <SubMenu key="sub5" title="Date Range" data-testid="menu-range">
                     <Menu.Item key="5.1">
                         <RangePicker
                             format={'DD/MM/YYYY'}

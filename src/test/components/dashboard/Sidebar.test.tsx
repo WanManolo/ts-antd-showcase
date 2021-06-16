@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { Sidebar, Props } from '../../../components/dashboard/Sidebar';
 
 describe("<Sidebar />", () => {
@@ -51,6 +51,18 @@ describe("<Sidebar />", () => {
 
         fireEvent.change(address, { target: { value: 'Address' } });
         expect(onAddressChange).toHaveBeenCalledWith('Address');
+    });
+
+    it('should contain group select options', async () => {
+        const onGroupChange = jest.fn();
+        const { findByTestId } = renderSidebar({ handleGroupFilter: onGroupChange });
+
+        fireEvent.click(screen.getByText(/Group/i));
+        const group = await findByTestId('select-group');
+        const element = group.firstElementChild;
+
+        element && fireEvent.mouseDown(element);
+        await waitFor(() => expect(screen.getByText('Group 3', { exact: true })).toBeInTheDocument());
     });
 });
 
