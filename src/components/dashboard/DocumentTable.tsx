@@ -34,10 +34,11 @@ interface Props {
     addressFilter: string;
     statusFilter: CheckboxValueType[];
     groupFilter: string;
+    dateRangeFilter: string[];
     resetFilters: (filter: string) => void;
 }
 
-export const DocumentTable: FC<Props> = ({ dateFilter, addressFilter, statusFilter, groupFilter, resetFilters }) => {
+export const DocumentTable: FC<Props> = ({ dateFilter, addressFilter, statusFilter, groupFilter, dateRangeFilter, resetFilters }) => {
     const [form] = Form.useForm();
     const [selectedColumn, setSelectedColumn] = useState<string>('date');
     const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
@@ -105,10 +106,6 @@ export const DocumentTable: FC<Props> = ({ dateFilter, addressFilter, statusFilt
         ],
     };
 
-    const handleDelete = (key: string | number) => {
-        setDocumentList(documentList.filter((item: Document) => item.key !== key));
-    };
-
     const handleResetColumnChange = (value: string) => {
         setSelectedColumn(value);
     };
@@ -151,7 +148,11 @@ export const DocumentTable: FC<Props> = ({ dateFilter, addressFilter, statusFilt
             .filter((doc: Document) => dateFilter === '' || doc.date === dateFilter)
             .filter((doc: Document) => addressFilter === '' || doc.address.includes(addressFilter))
             .filter((doc: Document) => statusFilter.length === 0 || statusFilter.some((sf) => doc.status === sf))
-            .filter((doc: Document) => groupFilter === '' || doc.group.includes(groupFilter));
+            .filter((doc: Document) => groupFilter === '' || doc.group.includes(groupFilter))
+            .filter((doc: Document) => {
+                return dateRangeFilter.length === 0 || dateRangeFilter[0] === '' || dateRangeFilter[1] === ''
+                    || (moment(dateRangeFilter[0], dateFormat).unix() <= moment(doc.date, dateFormat).unix() && moment(dateRangeFilter[1], dateFormat).unix() >= moment(doc.date, dateFormat).unix())
+            });
         setFilteredDocuments(newList);
         setTablePagination({
             total: documentList.length,
@@ -160,7 +161,7 @@ export const DocumentTable: FC<Props> = ({ dateFilter, addressFilter, statusFilt
             defaultCurrent: 1,
             showSizeChanger: true,
         });
-    }, [documentList, addressFilter, dateFilter, statusFilter, groupFilter]);
+    }, [documentList, addressFilter, dateFilter, statusFilter, groupFilter, dateRangeFilter]);
 
     return (
         <>

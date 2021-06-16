@@ -3,6 +3,8 @@ import { FC, useEffect, useState } from "react";
 import { Sidebar } from "./Sidebar";
 import { DocumentTable } from "./DocumentTable";
 import { CheckboxValueType } from "antd/lib/checkbox/Group";
+import { Moment } from 'moment';
+import { RangeValue } from 'rc-picker/lib/interface';
 
 interface Props {
 
@@ -13,6 +15,7 @@ export const DocumentDashboard: FC<Props> = () => {
     const [addressFilter, setAddressFilter] = useState<string>('');
     const [statusFilter, setStatusFilter] = useState<string[]>([]);
     const [groupFilter, setGroupFilter] = useState<string>('');
+    const [dateRangeFilter, setDateRangeFilter] = useState<string[]>([]);
     const [checkboxGroupStatus, setCheckBoxGroupStatus] = useState<CheckboxValueType[]>([]);
 
     const clearFilters = (column: string) => {
@@ -50,8 +53,8 @@ export const DocumentDashboard: FC<Props> = () => {
         setGroupFilter(group);
     };
 
-    const handleDateRangeFilter = () => {
-
+    const handleDateRangeFilter = (values: RangeValue<Moment>, formatString: [string, string]) => {
+        setDateRangeFilter(formatString);
     }
 
     useEffect(() => {
@@ -80,6 +83,7 @@ export const DocumentDashboard: FC<Props> = () => {
                         addressFilter={addressFilter}
                         statusFilter={statusFilter}
                         groupFilter={groupFilter}
+                        dateRangeFilter={dateRangeFilter}
                         resetFilters={clearFilters}
                     />
                 </Layout.Content>

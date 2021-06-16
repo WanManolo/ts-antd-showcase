@@ -10,14 +10,14 @@ const rootSubmenuKeys = ['sub1', 'sub2', 'sub3', 'sub4', 'sub5'];
 const checkboxKeys = ['Received', 'Printed', 'Folded', 'Sorted', 'Delivered'];
 const dateFormat = 'DD/MM/YYYY';
 
-interface Props {
+export interface Props {
     dateFilter: string;
     addressFilter: string;
     statusFilter: CheckboxValueType[];
     groupFilter: string;
     handleAddressFilter: (value: string) => void;
     handleDateFilter: (dateString: string) => void;
-    handleDateRangeFilter: (values: RangeValue<Moment> | null, formatString: [string, string] | null) => void;
+    handleDateRangeFilter: (values: RangeValue<Moment>, formatString: [string, string]) => void;
     handleStatusFilter: (options: CheckboxValueType[]) => void;
     handleGroupFilter: (group: string) => void;
 }
@@ -39,7 +39,7 @@ export const Sidebar: FC<Props> = ({ dateFilter, addressFilter, statusFilter, gr
             <>
                 <SubMenu key="sub1" title="Address">
                     <Menu.Item key="1.1">
-                        <Input value={addressFilter} placeholder="Search Address" onChange={(e: any) => handleAddressFilter(e.target.value)} />
+                        <Input data-testid="input-address" value={addressFilter} placeholder="Search Address" onChange={(e: any) => handleAddressFilter(e.target.value)} />
                     </Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub2" title="Date">
@@ -52,7 +52,7 @@ export const Sidebar: FC<Props> = ({ dateFilter, addressFilter, statusFilter, gr
                 </SubMenu>
                 <SubMenu key="sub4" title="Group">
                     <Menu.Item key="4.1">
-                        <Select value={groupFilter} defaultValue="" style={{ width: 120 }} onChange={(value: string) => handleGroupFilter(value)}>
+                        <Select data-testid="select-group" value={groupFilter} defaultValue="" style={{ width: 120 }} onChange={(value: string) => handleGroupFilter(value)}>
                             <Select.Option value="">None</Select.Option>
                             <Select.Option value="1">Group 1</Select.Option>
                             <Select.Option value="2">Group 2</Select.Option>
@@ -65,7 +65,6 @@ export const Sidebar: FC<Props> = ({ dateFilter, addressFilter, statusFilter, gr
                 <SubMenu key="sub5" title="Date Range">
                     <Menu.Item key="5.1">
                         <RangePicker
-                            defaultValue={[moment(new Date().toLocaleDateString(), dateFormat), moment(new Date().toLocaleDateString(), dateFormat)]}
                             format={'DD/MM/YYYY'}
                             onChange={(values: RangeValue<Moment>, formatString: [string, string]) => { handleDateRangeFilter(values, formatString) }}
                         />
@@ -77,7 +76,7 @@ export const Sidebar: FC<Props> = ({ dateFilter, addressFilter, statusFilter, gr
 
     return (
         <>
-            <Layout.Sider width={'20%'} className="site-layout-background">
+            <Layout.Sider data-testid="sidebar" width={'20%'} className="site-layout-background">
                 <PageHeader
                     className="site-page-header site-layout-background"
                     title="Filters"

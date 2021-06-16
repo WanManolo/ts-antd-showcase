@@ -9,24 +9,31 @@ import { Routes } from './components/Routes';
 
 class App extends Component {
   history: any;
+  selectedMenuEntry: string;
 
   constructor(props: any) {
     super(props);
     this.history = createBrowserHistory();
+    this.selectedMenuEntry = window.location.pathname.split("/").pop() || '';
   }
 
+  setSelectedMenuEntry = (value: string) => {
+    this.setState({ selectedMenuEntry: value });
+  };
+
   render() {
-    return (<div className="App">
-      <Router history={this.history}>
-        <Layout>
-          <Header />
-          <Layout.Content style={{ padding: '0 50px' }}>
-            <BreadCrumb />
-            <Routes {...this.props} />
-          </Layout.Content>
-        </Layout>
-      </Router>
-    </div>)
+    return (
+      <div className="App">
+        <Router history={this.history}>
+          <Layout>
+            <Header selectedEntry={this.selectedMenuEntry} setSelectedEntry={this.setSelectedMenuEntry} />
+            <Layout.Content style={{ padding: '0 50px' }}>
+              <BreadCrumb selectedEntry={this.selectedMenuEntry} setSelectedEntry={this.setSelectedMenuEntry}/>
+              <Routes {...this.props} />
+            </Layout.Content>
+          </Layout>
+        </Router>
+      </div>)
   }
 }
 
