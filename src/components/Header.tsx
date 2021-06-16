@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Layout, Menu } from 'antd';
 import { FC, useEffect, useState } from 'react';
 
@@ -8,19 +8,11 @@ interface Props {
 }
 
 export const Header: FC<Props> = ({ selectedEntry, setSelectedEntry }) => {
-  const location = useLocation();
-
   const [currentEntry, setCurrentEntry] = useState<string>('');
 
   const handleMenuClick = (e: any) => {
     setCurrentEntry(e.key);
-    setSelectedEntry(e.key);
   }
-
-  useEffect(() => {
-    const initialLocation = location.pathname.split("/").pop();
-    initialLocation && setCurrentEntry(initialLocation);
-  }, [location.pathname]);
 
   useEffect(() => {
     setCurrentEntry(selectedEntry);

@@ -1,6 +1,6 @@
 import { useLocation, Link } from "react-router-dom";
 import { Breadcrumb } from "antd";
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 
 interface Props {
   selectedEntry: string;
@@ -9,20 +9,10 @@ interface Props {
 
 export const BreadCrumb: FC<Props> = ({ selectedEntry, setSelectedEntry }) => {
   const location = useLocation();
-  const [entry, setEntry] = useState('');
 
   const handleLinkClick = (e: any) => {
-    setEntry(e.target.innerText.toLowerCase());
+    setSelectedEntry(e.target.innerText.toLowerCase());
   };
-
-  useEffect(() => {
-    const initialLocation = location.pathname.split("/").pop();
-    initialLocation && setSelectedEntry(initialLocation);
-  }, [location.pathname, setSelectedEntry]);
-
-  useEffect(() => {
-    setSelectedEntry(entry);
-  }, [entry, setSelectedEntry]);
 
   const renderBreadCrumb = () => {
     const { pathname } = location;

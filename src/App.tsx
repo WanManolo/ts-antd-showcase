@@ -7,18 +7,26 @@ import './App.css';
 import { BreadCrumb } from './components/breadcrumb/BreadCrumb';
 import { Routes } from './components/Routes';
 
-class App extends Component {
-  history: any;
+type Props = {
+
+};
+
+type State = {
   selectedMenuEntry: string;
+};
+class App extends Component<Props, State> {
+  history: any;
+  state: State = {
+    selectedMenuEntry: window.location.pathname.split("/").pop() || ''
+  }
 
   constructor(props: any) {
     super(props);
     this.history = createBrowserHistory();
-    this.selectedMenuEntry = window.location.pathname.split("/").pop() || '';
   }
 
   setSelectedMenuEntry = (value: string) => {
-    this.setState({ selectedMenuEntry: value });
+    this.setState((state) => ({ selectedMenuEntry: value }));
   };
 
   render() {
@@ -26,9 +34,9 @@ class App extends Component {
       <div className="App">
         <Router history={this.history}>
           <Layout>
-            <Header selectedEntry={this.selectedMenuEntry} setSelectedEntry={this.setSelectedMenuEntry} />
+            <Header selectedEntry={this.state.selectedMenuEntry} setSelectedEntry={this.setSelectedMenuEntry} />
             <Layout.Content style={{ padding: '0 50px' }}>
-              <BreadCrumb selectedEntry={this.selectedMenuEntry} setSelectedEntry={this.setSelectedMenuEntry}/>
+              <BreadCrumb selectedEntry={this.state.selectedMenuEntry} setSelectedEntry={this.setSelectedMenuEntry} />
               <Routes {...this.props} />
             </Layout.Content>
           </Layout>
