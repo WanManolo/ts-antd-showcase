@@ -6,7 +6,7 @@ import { CheckboxValueType } from "antd/lib/checkbox/Group";
 import { Moment } from 'moment';
 import { RangeValue } from 'rc-picker/lib/interface';
 
-interface Props {
+export interface Props {
     // No props
 }
 

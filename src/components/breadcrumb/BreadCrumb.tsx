@@ -2,18 +2,42 @@ import { useLocation, Link } from "react-router-dom";
 import { Breadcrumb } from "antd";
 import { FC } from 'react';
 
-interface Props {
+/**
+ * @name Props for BreadCrumb component
+ *
+ * @param selectedEntry value of the current menu entry
+ * @function setSelectedEntry setter function for current menu entry
+ */
+export interface Props {
   selectedEntry: string;
   setSelectedEntry: (value: string) => void;
 }
 
+/**
+ * @name BreadCrumb Function Component extends {@link FC}
+ * @summary Function component that will display a sider with a menu list containing filters to apply on the {@link DocumentTable} component.
+ *
+ * @param props {@link Props} to include. All mandatory.
+ *
+ * @returns Fragment {@link React.Fragment} containing the composition of elements to display the {@link Layout.Sider} with the filters.
+ */
 export const BreadCrumb: FC<Props> = ({ selectedEntry, setSelectedEntry }) => {
   const location = useLocation();
 
+  /**
+   * handleLinkClick - helper function to set current menu entry on click.
+   *
+   * @param e event
+   */
   const handleLinkClick = (e: any) => {
     setSelectedEntry(e.target.innerText.toLowerCase());
   };
 
+  /**
+   * @name renderBreadCrumb
+   * @summary Helper function to render BreadCrumb component
+   * @returns Fragment {@link React.Fragment} containing the current path breadcrumb
+   */
   const renderBreadCrumb = () => {
     const { pathname } = location;
     const pathnames = pathname.split("/").filter((item: string) => item);

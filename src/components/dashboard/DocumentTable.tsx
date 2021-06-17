@@ -244,7 +244,7 @@ export const DocumentTable: FC<Props> = ({
                     className="site-page-header site-layout-background"
                     title="Document Browser"
                 />
-                <div>
+                <div data-testid="table-component">
                     <Layout>
                         <Layout.Content className="site-layout-background">
                             <Form form={form} layout='inline'>

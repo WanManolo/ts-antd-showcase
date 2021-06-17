@@ -1,25 +1,38 @@
 import { Link } from "react-router-dom";
 import { Layout, Menu } from 'antd';
 import { FC, useEffect, useState } from 'react';
+import { Props } from './breadcrumb/BreadCrumb';
 
-interface Props {
-  selectedEntry: string;
-  setSelectedEntry: (value: string) => void;
-}
-
+/**
+ * @name Header Function Component extends {@link FC}
+ * @summary Function component that will display a navbar header
+ *
+ * @param props {@link Props} to include. All mandatory.
+ *
+ * @returns Fragment {@link React.Fragment} containing the composition of elements to display the {@link Menu}
+ */
 export const Header: FC<Props> = ({ selectedEntry, setSelectedEntry }) => {
   const [currentEntry, setCurrentEntry] = useState<string>('');
 
+  /**
+   * Handler to set current entry
+   * @param e event
+   */
   const handleMenuClick = (e: any) => {
     setCurrentEntry(e.key);
   }
 
+  // Effect for current entry
   useEffect(() => {
     setCurrentEntry(selectedEntry);
   }, [selectedEntry]);
 
+  /**
+   * @name renderNavbar
+   * @summary Helper function to render the navbar component
+   * @returns Fragment {@link React.Fragment} containing the elements of the navbar
+   */
   const renderNavbar = () => {
-
     return (
       <>
         <Layout className="header">
@@ -39,6 +52,7 @@ export const Header: FC<Props> = ({ selectedEntry, setSelectedEntry }) => {
       </>
     );
   };
+
   return (
     <>
       {renderNavbar()}
