@@ -54,7 +54,7 @@ const documents: Document[] = [
  *
  * @function resetFilters Function to reset the values of a selected filter.
  */
-interface Props {
+export interface Props {
     dateFilter: string;
     addressFilter: string;
     statusFilter: CheckboxValueType[];
