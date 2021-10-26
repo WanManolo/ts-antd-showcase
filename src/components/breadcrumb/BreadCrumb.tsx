@@ -1,6 +1,6 @@
-import { useLocation, Link } from "react-router-dom";
 import { Breadcrumb } from "antd";
-import { FC } from 'react';
+import { FC } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 /**
  * @name Props for BreadCrumb component
@@ -45,16 +45,32 @@ export const BreadCrumb: FC<Props> = ({ selectedEntry, setSelectedEntry }) => {
 
     return (
       <>
-        <Breadcrumb data-testid='breadcrumb-component' style={{ margin: '16px 0' }}>
-          {pathnames.length > 0 ?
-            <Breadcrumb.Item key="/"><Link to="/" onClick={handleLinkClick} >Home</Link></Breadcrumb.Item>
-            : <Breadcrumb.Item key="home" >Home</Breadcrumb.Item>}
+        <Breadcrumb
+          data-testid="breadcrumb-component"
+          style={{ margin: "16px 0" }}
+        >
+          {pathnames.length > 0 ? (
+            <Breadcrumb.Item key="/">
+              <Link to="/" onClick={handleLinkClick}>
+                Home
+              </Link>
+            </Breadcrumb.Item>
+          ) : (
+            <Breadcrumb.Item key="home">Home</Breadcrumb.Item>
+          )}
 
           {pathnames.map((name: string, index: number) => {
             const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
             const isLast = index === pathnames.length - 1;
-            return isLast ? <Breadcrumb.Item key={name}>{capitalize(name)}</Breadcrumb.Item>
-              : <Breadcrumb.Item key={name}><Link to={`${routeTo}`} onClick={handleLinkClick} >{capitalize(name)}</Link></Breadcrumb.Item>;
+            return isLast ? (
+              <Breadcrumb.Item key={name}>{capitalize(name)}</Breadcrumb.Item>
+            ) : (
+              <Breadcrumb.Item key={name}>
+                <Link to={`${routeTo}`} onClick={handleLinkClick}>
+                  {capitalize(name)}
+                </Link>
+              </Breadcrumb.Item>
+            );
           })}
         </Breadcrumb>
       </>
