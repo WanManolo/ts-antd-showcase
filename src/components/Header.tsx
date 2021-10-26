@@ -1,7 +1,7 @@
+import { Layout, Menu } from "antd";
+import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Layout, Menu } from 'antd';
-import { FC, useEffect, useState } from 'react';
-import { Props } from './breadcrumb/BreadCrumb';
+import { Props } from "./breadcrumb/BreadCrumb";
 
 /**
  * @name Header Function Component extends {@link FC}
@@ -12,7 +12,7 @@ import { Props } from './breadcrumb/BreadCrumb';
  * @returns Fragment {@link React.Fragment} containing the composition of elements to display the {@link Menu}
  */
 export const Header: FC<Props> = ({ selectedEntry, setSelectedEntry }) => {
-  const [currentEntry, setCurrentEntry] = useState<string>('');
+  const [currentEntry, setCurrentEntry] = useState<string>("");
 
   /**
    * Handler to set current entry
@@ -20,7 +20,7 @@ export const Header: FC<Props> = ({ selectedEntry, setSelectedEntry }) => {
    */
   const handleMenuClick = (e: any) => {
     setCurrentEntry(e.key);
-  }
+  };
 
   // Effect for current entry
   useEffect(() => {
@@ -36,7 +36,13 @@ export const Header: FC<Props> = ({ selectedEntry, setSelectedEntry }) => {
     return (
       <>
         <Layout className="header">
-          <Menu data-testid="header-component" theme="dark" mode="horizontal" onClick={handleMenuClick} selectedKeys={[currentEntry]}>
+          <Menu
+            data-testid="header-component"
+            theme="dark"
+            mode="horizontal"
+            onClick={handleMenuClick}
+            selectedKeys={[currentEntry]}
+          >
             <Menu.Item key="home">
               <Link to="/">
                 <p>Home</p>
@@ -53,9 +59,5 @@ export const Header: FC<Props> = ({ selectedEntry, setSelectedEntry }) => {
     );
   };
 
-  return (
-    <>
-      {renderNavbar()}
-    </>
-  );
+  return <>{renderNavbar()}</>;
 };

@@ -1,14 +1,14 @@
-import { Component } from 'react';
-import { Layout } from 'antd';
+import { Layout } from "antd";
+import { createBrowserHistory } from "history";
+import { Component } from "react";
 import { Router } from "react-router-dom";
-import { Header } from './components/Header';
-import { createBrowserHistory } from 'history';
-import './App.css';
-import { BreadCrumb } from './components/breadcrumb/BreadCrumb';
-import { Routes } from './components/Routes';
+import "./App.css";
+import { BreadCrumb } from "./components/breadcrumb/BreadCrumb";
+import { Header } from "./components/Header";
+import { Routes } from "./components/Routes";
 
 type Props = {
-// No props
+  // No props
 };
 
 type State = {
@@ -24,15 +24,15 @@ type State = {
  *
  * @author Juan Manuel Rodríguez
  *
-*/
+ */
 class App extends Component<Props, State> {
   // History for Router and links - type is any because type History is not generic
   history: any;
 
   state: State = {
     // Active navbar entry
-    selectedMenuEntry: window.location.pathname.split("/").pop() || ''
-  }
+    selectedMenuEntry: window.location.pathname.split("/").pop() || "",
+  };
 
   constructor(props: any) {
     super(props);
@@ -49,14 +49,21 @@ class App extends Component<Props, State> {
       <div className="App">
         <Router history={this.history}>
           <Layout>
-            <Header selectedEntry={this.state.selectedMenuEntry} setSelectedEntry={this.setSelectedMenuEntry} />
-            <Layout.Content style={{ padding: '0 50px' }}>
-              <BreadCrumb selectedEntry={this.state.selectedMenuEntry} setSelectedEntry={this.setSelectedMenuEntry} />
+            <Header
+              selectedEntry={this.state.selectedMenuEntry}
+              setSelectedEntry={this.setSelectedMenuEntry}
+            />
+            <Layout.Content style={{ padding: "0 50px" }}>
+              <BreadCrumb
+                selectedEntry={this.state.selectedMenuEntry}
+                setSelectedEntry={this.setSelectedMenuEntry}
+              />
               <Routes {...this.props} />
             </Layout.Content>
           </Layout>
         </Router>
-      </div>)
+      </div>
+    );
   }
 }
 
